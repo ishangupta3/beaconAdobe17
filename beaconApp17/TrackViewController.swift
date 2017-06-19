@@ -139,8 +139,11 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
                 
                   
                     print(beacon?.description ?? "Beacon Not Found")
+                    print(beacon?.proximityUUID.uuidString ?? "Error - UUID Not found")
+                    print(beacon?.major.stringValue ?? "Error - Major Value Not Found")
+                    print(beacon?.minor.stringValue ?? "Error - Minor Value Not Found")
          
-                    
+                
                     print(getDateTime())
                     
                     
@@ -163,14 +166,18 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
                 break
                 
     
-               }    // else    {
-//                iBeaconFound.text = "No Beacon Found"
-//                proxmityUUID.text =  "Not Found"
-//                majorValue.text = "Not Found"
-//                minorValue.text = "Not Found"
-//                accuracy.text = "Not Found"
-//            }
-//            
+                }     else    {
+                
+                iBeaconFound.text = "No Beacon Found"
+                proxmityUUID.text =  "Not Found"
+                majorValue.text = "Not Found"
+                minorValue.text = "Not Found"
+                accuracy.text = "Not Found"
+                
+                        break
+                }
+            
+ 
             
             }
             

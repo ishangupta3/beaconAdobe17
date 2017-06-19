@@ -24,7 +24,7 @@ func didEnterProxmity(beacon: CLBeacon) -> Bool {
         
            //  print("User has exited Region")
             
-            return false
+            return false //goodboy
         }
     
     
