@@ -64,6 +64,7 @@
 		CE779E221EE865C000AEDB30 /* beaconApp17UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beaconApp17UITests.swift; sourceTree = "<group>"; };
 		CE779E241EE865C000AEDB30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE779E301EE87EC300AEDB30 /* ObjCBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
+		CEAFB39E1EF9CD0300A0A33F /* beaconApp17.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = beaconApp17.entitlements; sourceTree = "<group>"; };
 		CEFD90771EEF176600A82771 /* TrackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackViewController.swift; sourceTree = "<group>"; };
 		CEFD90791EEF177A00A82771 /* TransmitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitViewController.swift; sourceTree = "<group>"; };
 		CEFD907B1EF0500E00A82771 /* model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = model.swift; sourceTree = "<group>"; };
@@ -137,6 +138,7 @@
 		CE779E011EE865C000AEDB30 /* beaconApp17 */ = {
 			isa = PBXGroup;
 			children = (
+				CEAFB39E1EF9CD0300A0A33F /* beaconApp17.entitlements */,
 				CE779E021EE865C000AEDB30 /* AppDelegate.swift */,
 				CE779E041EE865C000AEDB30 /* ViewController.swift */,
 				CE779E061EE865C000AEDB30 /* Main.storyboard */,
@@ -264,6 +266,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = VFH547A942;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					CE779E121EE865C000AEDB30 = {
 						CreatedOnToolsVersion = 8.3.2;
@@ -629,9 +636,10 @@
 			baseConfigurationReference = F36F19BE53E1C970C22AB07B /* Pods-beaconApp17.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = beaconApp17/beaconApp17.entitlements;
 				DEVELOPMENT_TEAM = VFH547A942;
 				INFOPLIST_FILE = beaconApp17/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.beaconApp17;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -645,9 +653,10 @@
 			baseConfigurationReference = 1C577B625ABBE94FCAE17F89 /* Pods-beaconApp17.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = beaconApp17/beaconApp17.entitlements;
 				DEVELOPMENT_TEAM = VFH547A942;
 				INFOPLIST_FILE = beaconApp17/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = test.beaconApp17;
 				PRODUCT_NAME = "$(TARGET_NAME)";

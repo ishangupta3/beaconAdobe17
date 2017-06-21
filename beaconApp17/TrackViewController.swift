@@ -8,8 +8,10 @@
 
 import UIKit
 import CoreLocation
+import CoreBluetooth
 
-class TrackViewController: UIViewController, CLLocationManagerDelegate {
+
+class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeripheralManagerDelegate{
     
     
     @IBOutlet weak var iBeaconFound: UILabel!
@@ -21,7 +23,13 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
     
     
     
+    
     var locationManager : CLLocationManager!
+    var centralManager: CBCentralManager!
+    var periManager: CBPeripheralManager!
+    
+    var uuidArray: [String]  = []
+    
     
     
     override func viewDidLoad() {
@@ -39,12 +47,46 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startRangingBeacons(in: beaconRegion3)
         locationManager.startRangingBeacons(in: beaconRegion4)
         
+        
+      periManager = CBPeripheralManager.init(delegate: self, queue: nil)
+        
+        
+        
+        
+      
+        
+//        locationManager.startMonitoring(for: beaconRegion1)
+//        locationManager.startMonitoring(for: beaconRegion2)
+//        locationManager.startMonitoring(for: beaconRegion3)
+//        locationManager.startMonitoring(for: beaconRegion4)
+//        
+        
+        
+        
+    
             }
     
     
     
-   
+    
+    
+    func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
+        
+        if peripheral.state == .poweredOn {
+                print("powerd on")
+        }
+        if peripheral.state == .poweredOff {
+            let alert = UIAlertController(title: "Bluetooth is turned Off", message: "To continue, plese turn bluetooth on!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    
 
+    
+    
+    
     
     
     // Create Beacon Regions 
@@ -91,25 +133,27 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
     
   
     func startScanningForBeaconRegion(beaconRegion: CLBeaconRegion) {
-        locationManager.startMonitoring(for: beaconRegion1)
+      //  locationManager.startMonitoring(for: beaconRegion1)
         locationManager.startRangingBeacons(in: beaconRegion1)
+        
+
         
         
         // ranging for beacon region 2
         
-        locationManager.startMonitoring(for: beaconRegion2)
+       // locationManager.startMonitoring(for: beaconRegion2)
         locationManager.startRangingBeacons(in: beaconRegion2)
         
         
         // ranging for beacon Region 3
         
-        locationManager.startMonitoring(for: beaconRegion3)
-        locationManager.startRangingBeacons(in: beaconRegion3)
+      //  locationManager.startMonitoring(for: beaconRegion3)
+       locationManager.startRangingBeacons(in: beaconRegion3)
         
         
         // ranging for beacon Region 4
         
-        locationManager.startMonitoring(for: beaconRegion4)
+      //  locationManager.startMonitoring(for: beaconRegion4)
         locationManager.startRangingBeacons(in: beaconRegion4)
 
         
@@ -118,33 +162,45 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
 
     
     
+    
         func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
             
-            let beacon = beacons.first  //checking for the first beacon in the range
+            if  let beacon = beacons.first   { //checking for the first beacon in the range {
             
             //beacon?.proximity == .immediate &&
             
-         while beacons.count > 0 {
-          
             
-            if    didEnterProxmity(beacon: (beacon!)) == true {
+            uuidArray.append((beacon.proximityUUID.uuidString))
+            var uuid =  beacon.proximityUUID.uuidString
+            
+         while beacons.count > 0 {
+            if    didEnterProxmity(beacon: (beacon)) == true && elapsedTime(uuidValue:uuidArray, secondUuidValue: uuid) == true {   // add something here where the loop only runs once
     
                 // we are checking if there any beacons in range
                     iBeaconFound.text = "iBeacon Found"
-                    proxmityUUID.text = beacon?.proximityUUID.uuidString
-                    majorValue.text = beacon?.major.stringValue
-                    minorValue.text = beacon?.minor.stringValue
-                    accuracy.text = String(describing: beacon!.accuracy)
+                    proxmityUUID.text = beacon.proximityUUID.uuidString
+                    majorValue.text = beacon.major.stringValue
+                    minorValue.text = beacon.minor.stringValue
+                    accuracy.text = String(describing: beacon.accuracy)
                 
                 
-                  
-                    print(beacon?.description ?? "Beacon Not Found")
-                    print(beacon?.proximityUUID.uuidString ?? "Error - UUID Not found")
-                    print(beacon?.major.stringValue ?? "Error - Major Value Not Found")
-                    print(beacon?.minor.stringValue ?? "Error - Minor Value Not Found")
+                
+                    print(beacon.description ?? "Beacon Not Found")
+                print(beacon.proximityUUID.uuidString ?? "Error - UUID Not found")
+                    print(beacon.major.stringValue ?? "Error - Major Value Not Found")
+                    print(beacon.minor.stringValue ?? "Error - Minor Value Not Found")
          
                 
-                    print(getDateTime())
+                
+                   // print(getDateTime())
+                
+//                    let time = getDateTimeInt()
+//                    var arrayOfTime : [Int] = []
+           
+            
+                
+                
+                
                     
                     
                     //   print(timeCounter(beacon: beacon!))
@@ -154,41 +210,48 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate {
                     
 
     
-                        if beacon?.proximity == CLProximity.unknown {
-                            distance.text = "Unknown Location"
+                                if beacon.proximity == CLProximity.unknown {
+                                    distance.text = "Unknown Location"
     
-                            } else if  beacon?.proximity == CLProximity.far {
-                            distance.text = "Far"
-                            } else if beacon?.proximity == CLProximity.immediate {
-                            distance.text = "Location: immediate"
+                                } else if  beacon.proximity == CLProximity.far {
+                                    distance.text = "Far"
+                                } else if beacon.proximity == CLProximity.immediate {
+                                    distance.text = "Location: immediate"
                         }
-                    
-                break
                 
+//               arrayOfTime.append(time)
+//                print(arrayOfTime)
+              
+              break
+             
+            
+            
     
-                }     else    {
+                                }     else    {
                 
-                iBeaconFound.text = "No Beacon Found"
-                proxmityUUID.text =  "Not Found"
-                majorValue.text = "Not Found"
-                minorValue.text = "Not Found"
-                accuracy.text = "Not Found"
+                                iBeaconFound.text = "No Beacon Found"
+                                proxmityUUID.text =  "Not Found"
+                                majorValue.text = "Not Found"
+                                minorValue.text = "Not Found"
+                                accuracy.text = "Not Found"
                 
-                        break
-                }
-            
- 
-            
+                break
+                                }
+                        }
+                
             }
-            
-                
+    
+
+
+    
       //  }  // end of contingency where user enters specified region -> to enable response
             
             print("Checking For Nearby Beacons")
-            
+        
+                }
     }
     
-}
+
 
 
 

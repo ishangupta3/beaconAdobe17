@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import CoreBluetooth // we are transmitting via bluetooth
 
-class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
+class TransmitViewController: UIViewController, CBPeripheralManagerDelegate{
     
     
     
@@ -31,6 +31,20 @@ class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
     var peripheralManaager: CBPeripheralManager!
     
     
+    var centralManager: CBCentralManager!  //testing
+    var peripheral: CBPeripheral! // Testing
+    
+//    
+//    centralManager = CBCentralManager(delegate: self, queue: nil)  // testing
+//    
+//    
+//    func centralManagerDidUpdateState(central: CBCentralManager) {
+//        print("state: \(central.state)")
+//    }
+//    
+    
+    
+    
     
     var transmitButtonBool = false
     
@@ -48,11 +62,21 @@ class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
         super.viewDidLoad()
         initBeaconRegion()
         
-        
-        
+
 
         
     }
+    
+    
+    
+    
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData:  [String : Any], rssi RSSI: NSNumber) {
+        
+        
+    }
+    
+
     
     
     func buttonColor(button: UIButton, y: Int) -> UIButton {
@@ -71,7 +95,8 @@ class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
             peripheralManaager.startAdvertising((beaconPeripheralData as? [String : Any]?)!)
             print("Bluetooth is powered on")
         } else {
-            peripheralManaager.stopAdvertising()
+           peripheralManaager.stopAdvertising()
+            // peripheralManaager.startAdvertising((beaconPeripheralData as? [String : Any]?)!)
            
         }
         
@@ -82,6 +107,7 @@ class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
     @IBAction func transmitButtonTapped(_ sender: Any) {
         beaconPeripheralData = beaconRegion1.peripheralData(withMeasuredPower: nil)
         peripheralManaager = CBPeripheralManager.init(delegate: self, queue: nil)
+     
         
     
         transmitButtonBool = true
@@ -208,8 +234,7 @@ class TransmitViewController: UIViewController, CBPeripheralManagerDelegate  {
         
         
         
-        
-        
+      
         
         
     }

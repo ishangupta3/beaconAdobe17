@@ -15,8 +15,8 @@ import CoreBluetooth
 
 func didEnterProxmity(beacon: CLBeacon) -> Bool {
     
-        if  beacon.accuracy < 15 {
-        
+        if  beacon.accuracy < 0.3 {
+
           //  print("User has entered Region")
             return true
         
@@ -30,6 +30,18 @@ func didEnterProxmity(beacon: CLBeacon) -> Bool {
     
     }
 
+
+func elapsedTime(uuidValue: [String], secondUuidValue: String ) -> Bool {
+    
+    if uuidValue[0] == secondUuidValue {
+        
+        return true
+    } else {
+        return true
+    }
+    
+}
+
     
     func timeCounter(beacon: CLBeacon) -> Int  {
         
@@ -42,6 +54,13 @@ func didEnterProxmity(beacon: CLBeacon) -> Bool {
         
         return Int(count)
     }
+
+
+    func getElapsedTime(time: AnyObject) -> Int {
+    
+        return Int(time as! String)!
+    
+        }
 
 
 

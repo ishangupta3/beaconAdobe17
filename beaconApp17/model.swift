@@ -53,6 +53,15 @@ func getDateTime() -> String    {
     
 }
 
+func getDateTimeInt() -> Int    {
+    
+    let datetime = getReadableTimestamp("mm:ss")
+    return Int("[\(datetime)]!")!
+    
+    
+    
+}
+
 
 
  
