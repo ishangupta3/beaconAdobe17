@@ -28,7 +28,8 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeriph
     var centralManager: CBCentralManager!
     var periManager: CBPeripheralManager!
     
-    var uuidArray: [String]  = []
+    var uuidArray: [String]  = []  //holding uuid values
+    var uuidCurrentArray: [String] = [] // we will use this as the current uuid value
     
     
     
@@ -171,10 +172,10 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeriph
             
             
             uuidArray.append((beacon.proximityUUID.uuidString))
-            var uuid =  beacon.proximityUUID.uuidString
+            uuidCurrentArray.append((beacon.proximityUUID.uuidString))
             
          while beacons.count > 0 {
-            if    didEnterProxmity(beacon: (beacon)) == true && elapsedTime(uuidValue:uuidArray, secondUuidValue: uuid) == true {   // add something here where the loop only runs once
+            if    didEnterProxmity(beacon: (beacon)) == true && elapsedTime(uuidValue:uuidArray, secondUuidValue: uuidCurrentArray) == true {   // add something here where the loop only runs once
     
                 // we are checking if there any beacons in range
                     iBeaconFound.text = "iBeacon Found"
@@ -186,7 +187,7 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeriph
                 
                 
                     print(beacon.description ?? "Beacon Not Found")
-                print(beacon.proximityUUID.uuidString ?? "Error - UUID Not found")
+                    print(beacon.proximityUUID.uuidString ?? "Error - UUID Not found")
                     print(beacon.major.stringValue ?? "Error - Major Value Not Found")
                     print(beacon.minor.stringValue ?? "Error - Minor Value Not Found")
          
@@ -223,9 +224,6 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeriph
 //                print(arrayOfTime)
               
               break
-             
-            
-            
     
                                 }     else    {
                 
@@ -236,17 +234,15 @@ class TrackViewController: UIViewController, CLLocationManagerDelegate, CBPeriph
                                 accuracy.text = "Not Found"
                 
                 break
-                                }
-                        }
+                            }   // ending of the else loop 
+                }  // ending of the while loop
                 
-            }
-    
-
-
+            }  // ending of if let statement
     
       //  }  // end of contingency where user enters specified region -> to enable response
             
             print("Checking For Nearby Beacons")
+            print()
         
                 }
     }

@@ -31,14 +31,12 @@ func didEnterProxmity(beacon: CLBeacon) -> Bool {
     }
 
 
-func elapsedTime(uuidValue: [String], secondUuidValue: String ) -> Bool {
+func elapsedTime(uuidValue: [String], secondUuidValue: [String] ) -> Bool {
     
-    if uuidValue[0] == secondUuidValue {
-        
-        return true
-    } else {
-        return true
-    }
+    uuidValue.remove
+    
+    if uuidValue.startIndex 
+    
     
 }
 
