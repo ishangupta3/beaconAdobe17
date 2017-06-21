@@ -1,0 +1,6 @@
+framework module Pods_beaconApp17 {
+  umbrella header "Pods-beaconApp17-umbrella.h"
+
+  export *
+  module * { export * }
+}
